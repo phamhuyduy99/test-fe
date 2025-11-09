@@ -1,0 +1,25 @@
+
+.unit-selector {
+    display: flex;
+    border: 1px solid #212121;
+    border-radius: 8px;
+    overflow: hidden;    background: #212121;
+
+}
+
+.unit-selector button {
+    padding: 4px 8px;
+    border: none;
+    background: #212121;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 6px;
+    min-width: 67px;
+}
+
+.unit-selector button.active {
+    background: #424242;
+    color: white;
+}
+
+

@@ -7,19 +7,29 @@ const TestCaculate = () => {
     const { unitType, setUnitType } = useTestCaculateHook()
 
     return (
-        <div className="flex flex-col ">
-            <div className="flex gap-4 w-full">
-                <span>Unit</span>
+        <div className="flex flex-col gap-4 ">
+            <div className="flex gap-2 w-full items-center justify-start">
+                <div className="text-[#aaaaaa] w-[100px] h-[36px] py-2 flex">
+                    <span className="text-xs h-[20px] items-center">
+                        Unit
+                    </span>
+                </div>
+
                 <Switch
                     unit={unitType}
                     onUnitChange={setUnitType}
                 />
             </div>
-            <div className="flex gap-4 w-full">
-                <span>Value</span>
+            <div className="flex gap-2 w-full items-center justify-start">
+                <div className="text-[#aaaaaa] w-[100px] h-[36px] py-2 flex">
+                    <span className="text-xs h-[20px] items-center">
+                        Value
+                    </span>
+                </div>
+
                 <InputPicker unit={unitType} />
             </div>
-        </div>
+        </div >
     )
 }
 

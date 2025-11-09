@@ -1,5 +1,7 @@
 import React, { useState, ChangeEvent, KeyboardEvent, useRef, useEffect } from 'react';
 import './InputPicker.css';
+import subtractIcon from './../../../../public/iconInputPicker/subtract.svg'
+import addIcon from './../../../../public/iconInputPicker/add.svg'
 
 type Unit = '%' | 'px';
 
@@ -244,15 +246,15 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
     }, [unit, value]);
 
     return (
-        <div className="input-picker">
+        <div className="input-picker w-[140px] h-9">
             <div className="input-controls">
                 <button
                     onClick={handleDecrement}
                     disabled={isDecrementDisabled}
-                    className="control-btn"
+                    className="control-btn flex items-center justify-center"
                     type="button"
                 >
-                    -
+                    <img src={subtractIcon} alt="" />
                 </button>
 
                 <div className="input-wrapper">
@@ -265,7 +267,7 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
                         onFocus={handleFocus}
                         onKeyDown={handleKeyDown}
                         onPaste={handlePaste}
-                        className="value-input"
+                        className="value-input w-full"
                         inputMode="decimal"
                         pattern="[0-9.,]*"
                         title="Chỉ được nhập số, dấu chấm hoặc dấu phẩy"
@@ -283,10 +285,10 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
                 <button
                     onClick={handleIncrement}
                     disabled={isIncrementDisabled}
-                    className="control-btn"
+                    className="control-btn flex items-center justify-center"
                     type="button"
                 >
-                    +
+                    <img src={addIcon} alt="" />
                 </button>
             </div>
         </div>
