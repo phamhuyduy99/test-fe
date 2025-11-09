@@ -13,13 +13,17 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
     const [value, setValue] = useState<string>('0');
     const [showTooltip, setShowTooltip] = useState<boolean>(false);
     const [tooltipMessage, setTooltipMessage] = useState<string>('');
+    const [tooltipType, setTooltipType] = useState<'min' | 'max' | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const tooltipRef = useRef<HTMLDivElement>(null);
+    const decrementTooltipRef = useRef<HTMLDivElement>(null);
+    const incrementTooltipRef = useRef<HTMLDivElement>(null);
     const prevUnitRef = useRef<Unit>(unit);
     const previousValidValueRef = useRef<string>('0');
 
     // Xử lý làm sạch giá trị
     const sanitizeValue = (input: string): string => {
+        if (input === '') return '';
+
         return input
             .replace(/,/g, '.')
             .replace(/[^\d.]/g, '')
@@ -27,19 +31,23 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
     };
 
     // Kiểm tra giá trị hợp lệ và cập nhật tooltip
-    const validateValue = (currentValue: string): { isValid: boolean; message: string } => {
+    const validateValue = (currentValue: string): { isValid: boolean; message: string; type?: 'min' | 'max' } => {
+        if (currentValue === '') {
+            return { isValid: false, message: '' };
+        }
+
         const numValue = parseFloat(currentValue);
 
         if (isNaN(numValue)) {
-            return { isValid: false, message: 'Value must be a number' };
+            return { isValid: false, message: '' };
         }
 
         if (numValue <= 0) {
-            return { isValid: false, message: 'Value must greater than 0' };
+            return { isValid: false, message: 'Value must greater than 0', type: 'min' };
         }
 
         if (unit === '%' && numValue > 100) {
-            return { isValid: false, message: 'Value must smaller than 100' };
+            return { isValid: false, message: 'Value must smaller than 100', type: 'max' };
         }
 
         return { isValid: true, message: '' };
@@ -47,6 +55,8 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
 
     // Lấy giá trị hợp lệ gần nhất
     const getNearestValidValue = (currentValue: string): string => {
+        if (currentValue === '') return '0';
+
         const numValue = parseFloat(currentValue);
 
         if (isNaN(numValue)) {
@@ -75,8 +85,9 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
 
         // Nếu giá trị không hợp lệ, hiển thị tooltip
         const validation = validateValue(cleaned);
-        if (!validation.isValid) {
+        if (!validation.isValid && validation.message) {
             setTooltipMessage(validation.message);
+            setTooltipType(validation.type || null);
             setShowTooltip(true);
 
             // Tự động ẩn tooltip sau 2 giây
@@ -85,6 +96,7 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
             }, 2000);
         } else {
             setShowTooltip(false);
+            setTooltipType(null);
         }
 
         // Cập nhật giá trị hợp lệ
@@ -94,8 +106,9 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
     // Xử lý khi focus
     const handleFocus = (): void => {
         const validation = validateValue(value);
-        if (!validation.isValid) {
+        if (!validation.isValid && validation.message) {
             setTooltipMessage(validation.message);
+            setTooltipType(validation.type || null);
             setShowTooltip(true);
         }
     };
@@ -107,8 +120,9 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
         if (inputValue === '') {
             setValue('');
             const validation = validateValue('');
-            if (!validation.isValid) {
+            if (!validation.isValid && validation.message) {
                 setTooltipMessage(validation.message);
+                setTooltipType(validation.type || null);
                 setShowTooltip(true);
             }
             return;
@@ -118,13 +132,15 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
         if (validPattern.test(inputValue)) {
             setValue(inputValue);
             const validation = validateValue(inputValue);
-            if (!validation.isValid) {
+            if (!validation.isValid && validation.message) {
                 setTooltipMessage(validation.message);
+                setTooltipType(validation.type || null);
                 setShowTooltip(true);
             } else {
                 // Nếu giá trị hợp lệ, cập nhật previousValidValue
                 previousValidValueRef.current = inputValue;
                 setShowTooltip(false);
+                setTooltipType(null);
             }
         }
     };
@@ -162,12 +178,14 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
         const cleaned = sanitizeValue(pastedText);
         setValue(cleaned);
         const validation = validateValue(cleaned);
-        if (!validation.isValid) {
+        if (!validation.isValid && validation.message) {
             setTooltipMessage(validation.message);
+            setTooltipType(validation.type || null);
             setShowTooltip(true);
         } else {
             previousValidValueRef.current = cleaned;
             setShowTooltip(false);
+            setTooltipType(null);
         }
     };
 
@@ -180,11 +198,13 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
         setValue(newValue.toString());
         previousValidValueRef.current = newValue.toString();
         const validation = validateValue(newValue.toString());
-        if (!validation.isValid) {
+        if (!validation.isValid && validation.message) {
             setTooltipMessage(validation.message);
+            setTooltipType(validation.type || null);
             setShowTooltip(true);
         } else {
             setShowTooltip(false);
+            setTooltipType(null);
         }
     };
 
@@ -194,11 +214,13 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
         setValue(newValue.toString());
         previousValidValueRef.current = newValue.toString();
         const validation = validateValue(newValue.toString());
-        if (!validation.isValid) {
+        if (!validation.isValid && validation.message) {
             setTooltipMessage(validation.message);
+            setTooltipType(validation.type || null);
             setShowTooltip(true);
         } else {
             setShowTooltip(false);
+            setTooltipType(null);
         }
     };
 
@@ -209,9 +231,13 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
     // Đóng tooltip khi click ra ngoài
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node) &&
-                inputRef.current && !inputRef.current.contains(event.target as Node)) {
+            if (
+                (decrementTooltipRef.current && !decrementTooltipRef.current.contains(event.target as Node)) &&
+                (incrementTooltipRef.current && !incrementTooltipRef.current.contains(event.target as Node)) &&
+                inputRef.current && !inputRef.current.contains(event.target as Node)
+            ) {
                 setShowTooltip(false);
+                setTooltipType(null);
             }
         };
 
@@ -231,13 +257,6 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
             if (!isNaN(numValue) && numValue > 100) {
                 setValue('100');
                 previousValidValueRef.current = '100';
-                setTooltipMessage('Value automatically adjusted to 100%');
-                setShowTooltip(true);
-
-                // Tự động ẩn tooltip sau 2 giây
-                setTimeout(() => {
-                    setShowTooltip(false);
-                }, 2000);
             }
         }
 
@@ -248,14 +267,24 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
     return (
         <div className="input-picker w-[140px] h-9">
             <div className="input-controls">
-                <button
-                    onClick={handleDecrement}
-                    disabled={isDecrementDisabled}
-                    className="control-btn flex items-center justify-center"
-                    type="button"
-                >
-                    <img src={subtractIcon} alt="" />
-                </button>
+                <div className="control-btn-wrapper">
+                    <button
+                        onClick={handleDecrement}
+                        disabled={isDecrementDisabled}
+                        className="control-btn flex items-center justify-center"
+                        type="button"
+                    >
+                        <img src={subtractIcon} alt="" />
+                    </button>
+
+                    {/* Tooltip cho nút giảm (min value) */}
+                    {showTooltip && tooltipType === 'min' && (
+                        <div ref={decrementTooltipRef} className="validation-tooltip decrement-tooltip">
+                            {tooltipMessage}
+                            <div className="tooltip-arrow"></div>
+                        </div>
+                    )}
+                </div>
 
                 <div className="input-wrapper">
                     <input
@@ -272,24 +301,26 @@ const InputPicker: React.FC<InputPickerProps> = ({ unit }) => {
                         pattern="[0-9.,]*"
                         title="Chỉ được nhập số, dấu chấm hoặc dấu phẩy"
                     />
+                </div>
 
-                    {/* Tooltip hiển thị thông báo lỗi */}
-                    {showTooltip && tooltipMessage && (
-                        <div ref={tooltipRef} className="validation-tooltip">
+                <div className="control-btn-wrapper">
+                    <button
+                        onClick={handleIncrement}
+                        disabled={isIncrementDisabled}
+                        className="control-btn flex items-center justify-center"
+                        type="button"
+                    >
+                        <img src={addIcon} alt="" />
+                    </button>
+
+                    {/* Tooltip cho nút tăng (max value) */}
+                    {showTooltip && tooltipType === 'max' && (
+                        <div ref={incrementTooltipRef} className="validation-tooltip increment-tooltip">
                             {tooltipMessage}
                             <div className="tooltip-arrow"></div>
                         </div>
                     )}
                 </div>
-
-                <button
-                    onClick={handleIncrement}
-                    disabled={isIncrementDisabled}
-                    className="control-btn flex items-center justify-center"
-                    type="button"
-                >
-                    <img src={addIcon} alt="" />
-                </button>
             </div>
         </div>
     );

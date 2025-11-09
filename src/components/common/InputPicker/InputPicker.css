@@ -7,10 +7,16 @@
     align-items: center;
     border: 1px solid #212121;
     border-radius: 8px;
-    overflow: visible; /* Quan trọng: phải là visible để tooltip hiển thị */
+    overflow: visible;
     background: #212121;
     transition: all 0.2s ease;
     position: relative;
+}
+
+.control-btn-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .input-wrapper {
@@ -31,6 +37,7 @@
     width: 100%;
     padding: 8px;
     color: #F9F9F9;
+    background: #212121;
 }
 
 .value-input:focus {
@@ -41,7 +48,6 @@
     background-color: #3B3B3B;
 }
 
-
 .value-input:invalid {
     border-color: #ff6b6b;
 }
@@ -51,54 +57,7 @@
     box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
 }
 
-.validation-tooltip {
-    position: absolute;
-    bottom: calc(100% + 10px); /* Hiển thị phía trên input */
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 8px 12px;
-    background-color: #ff6b6b;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 500;
-    white-space: nowrap;
-    z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    animation: fadeIn 0.2s ease-in-out;
-}
-
-/* Khi hover vào input, đổi màu cả hai nút */
-.input-controls:has(.value-input:hover) .control-btn:not(:disabled) {
-    background-color: #3B3B3B;
-}
-
-/* Khi focus vào input => đổi màu viền của .input-controls */
-.input-controls:has(.value-input:focus) {
-    border-color: #3C67FF; /* hoặc bất kỳ màu nào bạn muốn */
-}
-
-.validation-tooltip.adjusted {
-    background-color: #17a2b8; /* Màu xanh thông báo */
-}
-
-.validation-tooltip.adjusted::before {
-    border-color: #17a2b8 transparent transparent transparent;
-}
-
-.tooltip-arrow {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #ff6b6b;
-}
-
 .control-btn {
-    border: 8px;
     background: #212121;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -107,19 +66,17 @@
     font-weight: bold;
     font-size: 16px;
     position: relative;
-    overflow: hidden;
 }
 
-.control-btn:first-of-type{
+.control-btn-wrapper:first-of-type .control-btn{
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 }
 
-.control-btn:last-of-type{
+.control-btn-wrapper:last-of-type .control-btn{
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
 }
-
 
 .control-btn:first-child:hover:not(:disabled) {
     background: #3B3B3B;
@@ -137,7 +94,58 @@
 .control-btn:disabled {
     opacity: 0.4;
     cursor: not-allowed;
- 
+}
+
+/* Tooltip chung */
+.validation-tooltip {
+    position: absolute;
+    padding: 8px 12px;
+    background-color: #212121;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Tooltip cho nút giảm (bên trái) */
+.decrement-tooltip {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+}
+
+/* Tooltip cho nút tăng (bên phải) */
+.increment-tooltip {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+}
+
+.tooltip-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #212121;
+}
+
+/* Khi hover vào input, đổi màu cả hai nút */
+.input-controls:has(.value-input:hover) .control-btn:not(:disabled) {
+    background-color: #3B3B3B;
+}
+
+/* Khi focus vào input => đổi màu viền của .input-controls */
+.input-controls:has(.value-input:focus) {
+    border-color: #3C67FF;
 }
 
 @keyframes fadeIn {
