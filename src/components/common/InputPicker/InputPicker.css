@@ -1,0 +1,410 @@
+.input-picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: Arial, sans-serif;
+}
+
+.unit-selector {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.unit-selector button {
+    padding: 4px 8px;
+    border: none;
+    background: #f5f5f5;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-width: 40px;
+}
+
+.unit-selector button.active {
+    background: #007bff;
+    color: white;
+}
+
+.unit-selector button:hover:not(.active) {
+    background: #e9e9e9;
+}
+
+.input-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.control-btn {
+    padding: 4px 12px;
+    border: none;
+    background: #f5f5f5;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-width: 40px;
+    font-weight: bold;
+}
+
+.control-btn:hover:not(:disabled) {
+    background: #e9e9e9;
+}
+
+.control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.value-input {
+    width: 80px;
+    padding: 6px 8px;
+    border: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    outline: none;
+    font-size: 14px;
+}
+
+.value-input:focus {
+    /* background-color: #f0f8ff; */
+    border-color: #007bff;
+}
+
+.input-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-controls:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.control-btn {
+    padding: 10px 16px;
+    border: none;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 48px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #495057;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Button - với hiệu ứng hover màu đỏ nhạt */
+.control-btn:first-child {
+    border-right: 1px solid #e9ecef;
+}
+
+.control-btn:first-child:hover:not(:disabled) {
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+    color: #e53e3e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(229, 62, 62, 0.15);
+}
+
+/* Button + với hiệu ứng hover màu xanh lá nhạt */
+.control-btn:last-child {
+    border-left: 1px solid #e9ecef;
+}
+
+.control-btn:last-child:hover:not(:disabled) {
+    background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+    color: #38a169;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(56, 161, 105, 0.15);
+}
+
+/* Hiệu ứng pulse khi hover */
+@keyframes pulse {
+    0% { transform: translateY(-2px) scale(1); }
+    50% { transform: translateY(-2px) scale(1.05); }
+    100% { transform: translateY(-2px) scale(1); }
+}
+
+.control-btn:hover:not(:disabled) {
+    animation: pulse 1s infinite;
+}
+
+.control-btn:active:not(:disabled) {
+    animation: none;
+    transform: translateY(0) scale(0.98);
+}
+
+.control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f8f9fa;
+    color: #a0aec0;
+    transform: none;
+    box-shadow: none;
+}
+
+.value-input {
+    width: 90px;
+    padding: 10px 12px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d3748;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+.value-input:focus {
+    background: linear-gradient(135deg, #edf2ff 0%, #e6fffa 100%);
+    color: #2b6cb0;
+}
+
+
+.input-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-controls:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.control-btn {
+    padding: 10px 16px;
+    border: none;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 48px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #495057;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Button - với hiệu ứng hover màu đỏ nhạt */
+.control-btn:first-child {
+    border-right: 1px solid #e9ecef;
+}
+
+.control-btn:first-child:hover:not(:disabled) {
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+    color: #e53e3e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(229, 62, 62, 0.15);
+}
+
+/* Button + với hiệu ứng hover màu xanh lá nhạt */
+.control-btn:last-child {
+    border-left: 1px solid #e9ecef;
+}
+
+.control-btn:last-child:hover:not(:disabled) {
+    background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+    color: #38a169;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(56, 161, 105, 0.15);
+}
+
+/* Hiệu ứng pulse khi hover */
+@keyframes pulse {
+    0% { transform: translateY(-2px) scale(1); }
+    50% { transform: translateY(-2px) scale(1.05); }
+    100% { transform: translateY(-2px) scale(1); }
+}
+
+.control-btn:hover:not(:disabled) {
+    animation: pulse 1s infinite;
+}
+
+.control-btn:active:not(:disabled) {
+    animation: none;
+    transform: translateY(0) scale(0.98);
+}
+
+.control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f8f9fa;
+    color: #a0aec0;
+    transform: none;
+    box-shadow: none;
+}
+
+.value-input {
+    width: 90px;
+    padding: 10px 12px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d3748;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+.value-input:focus {
+    background: linear-gradient(135deg, #edf2ff 0%, #e6fffa 100%);
+    color: #2b6cb0;
+}
+
+/* Các style hiện tại giữ nguyên, chỉ thêm style mới cho tooltip thông báo điều chỉnh */
+.validation-tooltip.adjusted {
+    background-color: #17a2b8; /* Màu xanh thông báo */
+}
+
+.validation-tooltip.adjusted::before {
+    border-color: #17a2b8 transparent transparent transparent;
+}
+
+.input-picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.input-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: visible; /* Quan trọng: phải là visible để tooltip hiển thị */
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.value-input {
+    width: 80px;
+    padding: 8px 12px;
+    border: none;
+    border-left: 1px solid #e9ecef;
+    border-right: 1px solid #e9ecef;
+    text-align: center;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+/* Validation tooltip - ĐÃ SỬA LẠI VỊ TRÍ */
+.validation-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px); /* Hiển thị phía trên input */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background-color: #ff6b6b;
+    color: white;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.tooltip-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #ff6b6b;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Hiệu ứng khi input có lỗi */
+.value-input:invalid {
+    border-color: #ff6b6b;
+    background-color: #fff5f5;
+}
+
+.value-input:focus:invalid {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+/* Control buttons styles */
+.control-btn {
+    padding: 8px 12px;
+    border: none;
+    background: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 44px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #495057;
+    position: relative;
+    overflow: hidden;
+}
+
+.control-btn:first-child:hover:not(:disabled) {
+    background: #e9ecef;
+    color: #dc3545;
+    transform: translateY(-1px);
+    box-shadow: inset 0 -2px 0 rgba(220, 53, 69, 0.2);
+}
+
+.control-btn:last-child:hover:not(:disabled) {
+    background: #e9ecef;
+    color: #28a745;
+    transform: translateY(-1px);
+    box-shadow: inset 0 -2px 0 rgba(40, 167, 69, 0.2);
+}
+
+.control-btn:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.control-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #f8f9fa;
+    color: #6c757d;
+}
