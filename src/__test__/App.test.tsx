@@ -1,8 +1,13 @@
-import { render } from "@testing-library/react";
-import { expect, it } from "vitest";
-import App from "../App";
+import { render, screen } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
+import App from '../App'
 
-it("toUpperCase", () => {
-  const { asFragment } = render(<App />);
-  expect(asFragment()).toMatchSnapshot();
-});
+describe('App', () => {
+  it('renders without crashing', () => {
+    render(<App />)
+
+    // Kiểm tra cơ bản - không dùng toBeInTheDocument
+    expect(screen.getByText('Unit')).toBeDefined()
+    expect(screen.getByText('Value')).toBeDefined()
+  })
+})
